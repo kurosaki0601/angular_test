@@ -1,1 +1,23 @@
-<p>main works!</p>
+<h1>{{ name }}</h1>
+
+<a href="{{ googleURL }}  " target="_blank">go to Google</a>
+<!-- <input type="text" value="{{ name }}" /> -->
+<!-- <button class="btn btn-primary" (click)="onBtnClick()">Click me</button> -->
+
+<h1 class="show">{{ c }}</h1>
+<button class="btn btn-primary" (click)="increase($event)">+</button>
+<button class="btn btn-danger" (click)="decrease($event)">-</button>
+
+<input type="text" [(ngModel)]="name" (keyup.enter)="handleAddInput()" />
+<button class="btn btn-primary mx-5" (click)="handleAddInput()">
+  Add to do
+</button>
+<ul>
+  <!-- <li *ngFor="let item of listTodo">{{ item }}</li> -->
+  <li *ngFor="let item of listTodo">
+    {{ item.content
+    }}<button class="btn btn-primary" (click)="delete()">Delete</button
+    ><button class="btn btn-primary">Complete</button>
+  </li>
+</ul>
+<div *ngIf="temp">HELLO</div>
