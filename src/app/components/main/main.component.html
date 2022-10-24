@@ -1,23 +1,56 @@
 <h1>{{ name }}</h1>
+<input type="text" [(ngModel)]="name" (blur)="onblur(name)" />
 
-<a href="{{ googleURL }}  " target="_blank">go to Google</a>
-<!-- <input type="text" value="{{ name }}" /> -->
-<!-- <button class="btn btn-primary" (click)="onBtnClick()">Click me</button> -->
+<a [href]="googleURL" target="_blank">Go to Google</a>
 
-<h1 class="show">{{ c }}</h1>
-<button class="btn btn-primary" (click)="increase($event)">+</button>
-<button class="btn btn-danger" (click)="decrease($event)">-</button>
+<h2>Counter: {{ counter }}</h2>
 
-<input type="text" [(ngModel)]="name" (keyup.enter)="handleAddInput()" />
-<button class="btn btn-primary mx-5" (click)="handleAddInput()">
-  Add to do
-</button>
-<ul>
-  <!-- <li *ngFor="let item of listTodo">{{ item }}</li> -->
-  <li *ngFor="let item of listTodo">
-    {{ item.content
-    }}<button class="btn btn-primary" (click)="delete()">Delete</button
-    ><button class="btn btn-primary">Complete</button>
-  </li>
-</ul>
-<div *ngIf="temp">HELLO</div>
+<button class="btn btn-primary mr-2" (click)="btnMinus()">-</button>
+<button class="btn btn-warning" (click)="btnIncrease($event)">+</button>
+
+<form>
+  <h2 class="mt-5 text-center">To Do List</h2>
+  <div class="form-container">
+    <div class="form-input">
+      <div class="form-group">
+        <label for="task">Task</label>
+        <!-- #todoList use template variable -->
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          #todoList
+          [(ngModel)]="newTodo"
+          (keyup.enter)="addTodoList(todoList)"
+          name="title"
+          placeholder="Input Title"
+        />
+      </div>
+      <button
+        type="submit"
+        (click)="addTodoList(newTodo)"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+    </div>
+    <div class="form-list">
+      <ul class="list-group">
+        <li
+          class="list-group-item list-todo"
+          *ngFor="let todo of todos; let i = index"
+        >
+          <span
+            class="title-list"
+            [class.completed]="todo.completed"
+            (click)="checkTatus(todo.completed, i)"
+            >{{ i + 1 }}. {{ todo.title }}</span
+          >
+          <button class="btn btn-primary mr-2" (click)="deletedTodoList(i)">
+            DELETE
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</form>

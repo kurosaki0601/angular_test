@@ -1,11 +1,4 @@
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit } from '@angular/core';
-
-interface TodoType {
-  id: string;
-  content: string;
-  complete: boolean;
-}
 
 @Component({
   selector: 'app-main',
@@ -14,57 +7,79 @@ interface TodoType {
 })
 export class MainComponent implements OnInit {
   name: string = 'Manh';
-  c: number = 0;
-  temp: boolean = false;
-  //listTodo: string[] = ['Todo 1', 'Todo 2', 'Todo 3'];
-  listTodo: TodoType[] = [
+  googleURL: string = 'https://www.google.com/?hl=vi';
+  newTodo: string = '';
+
+  todos: {
+    userId: number;
+    id?: number;
+    title: string;
+    completed: boolean;
+  }[] = [
     {
-      id: '1',
-      content: 'todo 1',
-      complete: false,
+      userId: 1,
+      id: 1,
+      title: 'Delectus aut autem',
+      completed: false,
     },
     {
-      id: '2',
-      content: 'todo 2',
-      complete: false,
+      userId: 1,
+      id: 2,
+      title: 'Quis ut nam facilis et officia qui',
+      completed: false,
     },
     {
-      id: '3',
-      content: 'todo 3',
-      complete: false,
+      userId: 1,
+      id: 3,
+      title: 'Fugiat veniam minus',
+      completed: false,
+    },
+    {
+      userId: 1,
+      id: 4,
+      title: 'Et porro tempora',
+      completed: true,
+    },
+    {
+      userId: 1,
+      id: 5,
+      title: 'Laboriosam mollitia et enim quasi adipisci quia provident illum',
+      completed: false,
     },
   ];
-  colspan: number = 5;
+
   constructor() {}
-  googleURL: string = 'https://www.google.com.vn/?hl=vi';
-  // handleAddInput() {
-  //   this.listTodo.push(this.name);
-  //   this.name = '';
-  // }
-  handleAddInput() {
-    this.listTodo.push({
-      id: '20',
-      content: this.name,
-      complete: false,
+
+  btnIncrease(eventObj) {
+    this.counter += 1;
+  }
+
+  btnMinus() {
+    this.counter <= 0 ? 0 : (this.counter -= 1);
+  }
+
+  onblur(value) {
+    this.name = value;
+  }
+
+  addTodoList(input) {
+    console.log(input);
+    this.todos.unshift({
+      userId: 1,
+      title: this.newTodo,
+      completed: false,
     });
-    this.name = '';
   }
-  delete() {
-    let filterObj = this.listTodo.filter((item) => item.content !== 'todo 2');
-    console.log(filterObj);
+
+  deletedTodoList(index) {
+    this.todos.splice(index, 1);
   }
+
+  checkTatus(status, index) {
+    this.todos[index].completed = !status;
+  }
+
+  counter: number = 0;
 
   ngOnInit(): void {}
-
-  onBtnClick() {
-    console.log('clicked');
-  }
-
-  increase(event) {
-    this.c = this.c + 1;
-    console.log(event);
-  }
-  decrease(event) {
-    this.c = this.c - 1;
-  }
 }
