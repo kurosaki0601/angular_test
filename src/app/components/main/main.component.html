@@ -9,7 +9,6 @@
 <button class="btn btn-warning" (click)="btnIncrease($event)">+</button>
 
 <form>
-  <h2 class="mt-5 text-center">To Do List</h2>
   <div class="form-container">
     <div class="form-input">
       <div class="form-group">
@@ -35,7 +34,8 @@
       </button>
     </div>
     <div class="form-list">
-      <ul class="list-group">
+      <h2 class="mt-5 text-center">To Do List</h2>
+      <ul class="list-group" *ngIf="todos.length > 0">
         <li
           class="list-group-item list-todo"
           *ngFor="let todo of todos; let i = index"
@@ -51,6 +51,7 @@
           </button>
         </li>
       </ul>
+      <p class="text-center" *ngIf="todos.length === 0">No todos</p>
     </div>
   </div>
 </form>

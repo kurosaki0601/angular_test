@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService, Todo } from 'src/app/services/todo.service';
 
 @Component({
   selector: 'app-main',
@@ -10,45 +11,13 @@ export class MainComponent implements OnInit {
   googleURL: string = 'https://www.google.com/?hl=vi';
   newTodo: string = '';
 
-  todos: {
-    userId: number;
-    id?: number;
-    title: string;
-    completed: boolean;
-  }[] = [
-    {
-      userId: 1,
-      id: 1,
-      title: 'Delectus aut autem',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 2,
-      title: 'Quis ut nam facilis et officia qui',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 3,
-      title: 'Fugiat veniam minus',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 4,
-      title: 'Et porro tempora',
-      completed: true,
-    },
-    {
-      userId: 1,
-      id: 5,
-      title: 'Laboriosam mollitia et enim quasi adipisci quia provident illum',
-      completed: false,
-    },
-  ];
+  todos: Todo[] = [];
 
-  constructor() {}
+  constructor(private todoService: TodoService) {
+    todoService.getAllTodos().subscribe((res: Todo[]) => {
+      this.todos = res;
+    });
+  }
 
   btnIncrease(eventObj) {
     this.counter += 1;
@@ -62,9 +31,9 @@ export class MainComponent implements OnInit {
     this.name = value;
   }
 
-  addTodoList(input) {
-    console.log(input);
-    this.todos.unshift({
+  addTodoList(input?) {
+    //console.log(input);
+    this.todos.push({
       userId: 1,
       title: this.newTodo,
       completed: false,
