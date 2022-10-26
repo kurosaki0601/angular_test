@@ -13,11 +13,7 @@ export class MainComponent implements OnInit {
 
   todos: Todo[] = [];
 
-  constructor(private todoService: TodoService) {
-    todoService.getAllTodos().subscribe((res: Todo[]) => {
-      this.todos = res;
-    });
-  }
+  constructor(private todoService: TodoService) {}
 
   btnIncrease(eventObj) {
     this.counter += 1;
@@ -41,7 +37,12 @@ export class MainComponent implements OnInit {
   }
 
   deletedTodoList(index) {
-    this.todos.splice(index, 1);
+    this.todoService.deleteTodo(this.todos[index].id).subscribe(
+      (res) => {
+        this.todos.splice(index, 1);
+      },
+      (err) => {}
+    );
   }
 
   checkTatus(status, index) {
@@ -50,5 +51,9 @@ export class MainComponent implements OnInit {
 
   counter: number = 0;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.todoService.getAllTodos().subscribe((res: Todo[]) => {
+      this.todos = res;
+    });
+  }
 }

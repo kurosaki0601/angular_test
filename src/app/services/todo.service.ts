@@ -12,9 +12,13 @@ export interface Todo {
 })
 export class TodoService {
   todos: Todo[] = [];
+  private baseURL = 'https://jsonplaceholder.typicode.com';
 
   constructor(private http: HttpClient) {}
   getAllTodos() {
-    return this.http.get('https://jsonplaceholder.typicode.com/todos');
+    return this.http.get(this.baseURL + '/todos');
+  }
+  deleteTodo(id) {
+    return this.http.delete(this.baseURL + '/todos/' + id);
   }
 }
